@@ -1,2 +1,2 @@
-# yourenicked-jenkins
-A jenkins as code for personal use.
+# jenkins
+A jenkins personal use, defined entirely as code.
