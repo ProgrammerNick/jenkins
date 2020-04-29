@@ -1,0 +1,14 @@
+antisamy-markup-formatter:2.0
+build-timeout:1.19.1
+cloudbees-folder:6.12
+configuration-as-code:1.39
+credentials:2.3.7
+credentials-binding:1.22
+git:4.2.2
+github-oauth:0.33
+greenballs:1.15
+job-dsl:1.77
+script-security:1.13
+simple-theme-plugin:0.6
+startup-trigger-plugin:2.9.3
+ws-cleanup:0.38

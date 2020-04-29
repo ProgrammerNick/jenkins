@@ -1,0 +1,66 @@
+jenkins:
+  systemMessage: "Jenkins"
+  securityRealm:
+    github:
+      githubWebUri: "https://github.com"
+      githubApiUri: "https://api.github.com"
+      clientID: "${GH_CLIENT_ID}" # Environment variable
+      clientSecret: "${GH_CLIENT_SECRET}" # Environment variable
+      oauthScopes: "read:org,user:email"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+              scope: GLOBAL
+              id: "GH_PAT"
+              username: "ProgrammerNick"
+              password: "${GH_PAT}" # Environment variable
+              description: "GitHub Personal Access Token for ProgrammerNick"
+      - string:
+              scope: GLOBAL
+              id: "GH_CLIENT_ID"
+              secret: "${GH_CLIENT_ID}" # Environment variable
+              description: "GitHub Client ID"
+      - string:
+              scope: GLOBAL
+              id: "GH_CLIENT_SECRET"
+              secret: "${GH_CLIENT_SECRET}" # Environment variable
+              description: "GitHub Client Secret"
+
+jobs:
+  - script: >
+      job('DSL_Seed') {
+          triggers {
+              hudsonStartupTrigger {
+                  quietPeriod("60")
+                  runOnChoice("ON_CONNECT")
+                  label("master")
+                  nodeParameterName("")
+              }
+          }
+          scm {
+              git {
+                  remote {
+                      github('ProgrammerNick/jenkins', 'https')
+                      credentials('GH_PAT')
+                  }
+                  branch("master")
+              }
+          }
+          steps {
+              dsl {
+                external("**/*JobDsl.groovy")
+              }
+          }
+      }
+
+unclassified:
+  simple-theme-plugin:
+    elements:
+    - cssUrl:
+        url: "https://cdn.rawgit.com/afonsof/jenkins-material-theme/gh-pages/dist/material-indigo.css"
