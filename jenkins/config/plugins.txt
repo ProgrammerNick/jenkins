@@ -4,6 +4,7 @@ cloudbees-folder:6.12
 configuration-as-code:1.39
 credentials:2.3.7
 credentials-binding:1.22
+envinject:2.3.0
 git:4.2.2
 github-oauth:0.33
 greenballs:1.15
