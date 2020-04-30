@@ -1,0 +1,15 @@
+antisamy-markup-formatter:latest
+build-timeout:latest
+cloudbees-folder:latest
+configuration-as-code:latest
+credentials:latest
+credentials-binding:latest
+envinject:latest
+git:latest
+github-oauth:latest
+greenballs:latest
+job-dsl:latest
+script-security:latest
+simple-theme-plugin:latest
+startup-trigger-plugin:latest
+ws-cleanup:latest
