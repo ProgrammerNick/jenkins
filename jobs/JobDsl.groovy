@@ -23,8 +23,6 @@ job('Bake_Jenkins_Container') {
     }
     
     steps {
-        dockerBuildAndPublish {
-            tag('${IMAGE_TAG}')
-        }
+        shell('docker build . -t ${IMAGE_TAG}')
     }
 }
