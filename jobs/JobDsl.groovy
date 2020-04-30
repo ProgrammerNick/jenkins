@@ -23,6 +23,6 @@ job('Bake_Jenkins_Container') {
     }
     
     steps {
-        shell("docker build . -t ${SCOPE}/jenkins")
+        shell('docker build . -t ${SCOPE}/jenkins')
     }
 }
