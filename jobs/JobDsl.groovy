@@ -3,7 +3,7 @@ job('Bake_Jenkins_Container') {
     
     wrappers {
         environmentVariables {
-            env('SCOPE', 'nick')
+            env('IMAGE_TAG', 'nick/jenkins')
         }
         credentialsBinding {
             usernamePassword('GH_PAT', 'GH_PAT')
@@ -23,6 +23,8 @@ job('Bake_Jenkins_Container') {
     }
     
     steps {
-        shell('docker build . -t ${SCOPE}/jenkins')
+        dockerBuildAndPublish {
+            tag('${IMAGE_TAG}')
+        }
     }
 }
