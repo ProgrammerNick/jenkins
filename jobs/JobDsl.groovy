@@ -6,7 +6,7 @@ job('Bake_Jenkins_Container') {
             env('SCOPE', 'nick')
         }
         credentialsBinding {
-            string('GH_PAT', 'GH_PAT')
+            usernamePassword('GH_PAT', 'GH_PAT')
             string('GH_CLIENT_ID', 'GH_CLIENT_ID')
             string('GH_CLIENT_SECRET', 'GH_CLIENT_SECRET')
         }
