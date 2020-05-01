@@ -46,9 +46,6 @@ jobs:
           environmentVariables {
             env('CLASSPATH', '$CLASSPATH:jobs/Docker')
           }
-          systemGroovyCommand {
-            sandbox(true)
-          }
           scm {
               git {
                   remote {
