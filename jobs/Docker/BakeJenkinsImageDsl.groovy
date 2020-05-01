@@ -1,4 +1,4 @@
-package jobs.docker
+package Docker
 
 class BakeJenkinsImageDsl {
 

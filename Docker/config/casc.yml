@@ -37,11 +37,17 @@ jobs:
       job('DSL_Seed') {
           triggers {
               hudsonStartupTrigger {
-                  quietPeriod("60")
+                  quietPeriod("10")
                   runOnChoice("ON_CONNECT")
                   label("master")
                   nodeParameterName("")
               }
+          }
+          environmentVariables {
+            env('CLASSPATH', '$CLASSPATH:jobs/Docker')
+          }
+          systemGroovyCommand {
+            sandbox(true)
           }
           scm {
               git {
