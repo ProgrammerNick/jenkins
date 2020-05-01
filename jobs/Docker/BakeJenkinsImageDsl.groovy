@@ -2,5 +2,5 @@ package Docker
 
 class BakeJenkinsImageDsl {
 
-  steps = { shell('echo hello, world!') }
+  def steps = { shell('echo hello, world!') }
 }
