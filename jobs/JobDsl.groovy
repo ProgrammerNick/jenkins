@@ -1,3 +1,6 @@
+import jobs.docker.BakeJenkinsImageDsl
+
+jenkinsBakeConfig = new BakeJenkinsImageDsl();
 
 job('Bake_Jenkins_Container') {
     
@@ -22,7 +25,8 @@ job('Bake_Jenkins_Container') {
         }
     }
     
-    steps {
-        shell('docker build . -t ${IMAGE_TAG}')
-    }
+    jenkinsBakeConfig.steps
+    // steps {
+    //     shell('docker build . -t ${IMAGE_TAG}')
+    // }
 }
