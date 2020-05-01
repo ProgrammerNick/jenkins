@@ -1,6 +1,6 @@
 import Docker.BakeJenkinsImageDsl
 
-jenkinsBakeConfig = new BakeJenkinsImageDsl();
+def jenkinsBakeConfig = new BakeJenkinsImageDsl();
 
 job('Bake_Jenkins_Container') {
     
