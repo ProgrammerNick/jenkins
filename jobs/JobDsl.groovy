@@ -25,7 +25,7 @@ job('Bake_Jenkins_Container') {
         }
     }
     
-    jenkinsBakeConfig.steps
+    steps jenkinsBakeConfig.steps
     // steps {
     //     shell('docker build . -t ${IMAGE_TAG}')
     // }
