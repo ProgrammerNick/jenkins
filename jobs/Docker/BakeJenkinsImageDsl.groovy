@@ -10,6 +10,6 @@ class BakeJenkinsImageDsl {
     shell('echo hello, world!') 
   }
 
-  def steps = mySteps << utils.steps
+  def steps = mySteps >> utils.steps
 
 }
