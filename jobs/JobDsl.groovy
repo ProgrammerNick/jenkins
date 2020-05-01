@@ -1,4 +1,4 @@
-import jobs.docker.BakeJenkinsImageDsl
+import jobs.Docker.BakeJenkinsImageDsl
 
 jenkinsBakeConfig = new BakeJenkinsImageDsl();
 
