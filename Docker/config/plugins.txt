@@ -1,10 +1,10 @@
 antisamy-markup-formatter:latest
-authorize-project:latest
 build-timeout:latest
 cloudbees-folder:latest
 configuration-as-code:latest
 credentials:latest
 credentials-binding:latest
+ec2:latest
 envinject:latest
 git:latest
 github-oauth:latest
@@ -13,4 +13,5 @@ job-dsl:latest
 script-security:latest
 simple-theme-plugin:latest
 startup-trigger-plugin:latest
+workflow-aggregator:latest
 ws-cleanup:latest

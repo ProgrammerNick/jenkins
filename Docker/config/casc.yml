@@ -10,12 +10,41 @@ jenkins:
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
-
-# TODO:
-# Add AuthorizeProject plugin configuration when it gets support:
-# https://github.com/jenkinsci/configuration-as-code-plugin/issues/983
-# https://issues.jenkins-ci.org/browse/JENKINS-56774
-# https://github.com/jenkinsci/authorize-project-plugin/pull/44
+  
+  clouds:
+  - amazonEC2:
+      cloudName: "AWS"
+      credentialsId: "aws" # TODO: give jenkins own credentials
+      privateKey: |-
+        "${AWS_AGENT_KEY}"
+      region: "ap-southeast-2"
+      templates:
+      - ami: "ami-0153a4eb8b94cfb5e" # TODO: work out how this should be
+        amiType:
+          unixData:
+            sshPort: "22"
+        associatePublicIp: false
+        connectBySSHProcess: false
+        connectionStrategy: PUBLIC_IP # TODO jumpboxes and stuff
+        deleteRootOnTermination: false
+        description: "centos"
+        ebsOptimized: false
+        idleTerminationMinutes: "15"
+        labelString: "centos"
+        maxTotalUses: -1
+        minimumNumberOfInstances: 0
+        minimumNumberOfSpareInstances: 0
+        mode: NORMAL
+        monitoring: false
+        numExecutors: 1
+        remoteAdmin: "ec2-user"
+        remoteFS: "/home/ec2-user"
+        stopOnTerminate: false
+        t2Unlimited: false
+        type: T2Micro
+        useDedicatedTenancy: false
+        useEphemeralDevices: false
+      useInstanceProfileForCredentials: false
 
 credentials:
   system:
@@ -37,44 +66,44 @@ credentials:
           id: "GH_CLIENT_SECRET"
           secret: "${GH_CLIENT_SECRET}" # Environment variable
           description: "GitHub Client Secret"
-
-jobs:
-  - script: >
-      job('DSL_Seed') {
-          triggers {
-              hudsonStartupTrigger {
-                  quietPeriod("10")
-                  runOnChoice("ON_CONNECT")
-                  label("master")
-                  nodeParameterName("")
-              }
-          }
-          environmentVariables {
-            env('CLASSPATH', '$CLASSPATH:jobs/Docker')
-          }
-          scm {
-              git {
-                  remote {
-                      github('ProgrammerNick/jenkins', 'https')
-                      credentials('GH_PAT')
-                  }
-                  branch("master")
-              }
-          }
-          steps {
-              dsl {
-                external("**/*JobDsl.groovy")
-              }
-          }
-          // Workaround for JobDSL not making sandbox a parameter
-          configure { project ->
-              def builder = project / builders / 'javaposse.jobdsl.plugin.ExecuteDslScripts'
-              builder.appendNode('sandbox', 'true')
-          }
-      }
+      - aws:
+          accessKey: "${AWS_ACCESS_KEY}"
+          description: "jenkins-aws"
+          id: "aws"
+          scope: GLOBAL
+          secretKey: "${AWS_SECRET_KEY}"
 
 unclassified:
   simple-theme-plugin:
     elements:
     - cssUrl:
         url: "https://cdn.rawgit.com/afonsof/jenkins-material-theme/gh-pages/dist/material-indigo.css"
+# jobs:
+#   - script: >
+#       job('DSL_Seed') {
+#           triggers {
+#               hudsonStartupTrigger {
+#                   quietPeriod("10")
+#                   runOnChoice("ON_CONNECT")
+#                   label("master")
+#                   nodeParameterName("")
+#               }
+#           }
+#           environmentVariables {
+#             env('CLASSPATH', '$CLASSPATH:jobs/Docker')
+#           }
+#           scm {
+#               git {
+#                   remote {
+#                       github('ProgrammerNick/jenkins', 'https')
+#                       credentials('GH_PAT')
+#                   }
+#                   branch("master")
+#               }
+#           }
+#           steps {
+#               dsl {
+#                 external("**/*JobDsl.groovy")
+#               }
+#           }
+#       }
